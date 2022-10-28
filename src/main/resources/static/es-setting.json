@@ -1,0 +1,12 @@
+{"settings": {
+    "index" : {
+        "similarity" : {
+          "default" : {
+            "type" : "BM25",
+            "b": 1,
+            "k1": 5
+          }
+        }
+      }
+    }
+}
