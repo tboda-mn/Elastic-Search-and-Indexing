@@ -17,20 +17,21 @@ public interface DocRepository extends ElasticsearchRepository<Doc, String> {
 	@Query("{\"match\":{\"input\":\"?0\"}}")
 	Page<Doc> findByInput(String name, Pageable pageable);
 	
-	@Query("{\"bool\": {\r\n"
-			+ "      \"must\": [\r\n"
-			+ "        {\r\n"
-			+ "          \"match\": {\r\n"
-			+ "            \"input\": \"?0\"\r\n"
-			+ "          }\r\n"
-			+ "        },\r\n"
-			+ "        {\r\n"
-			+ "          \"match\": {\r\n"
-			+ "            \"output\": \"?1\"\r\n"
-			+ "          }\r\n"
-			+ "        }\r\n"
+	@Query("{\"bool\":{\r\n"
+			+ "    \"must\":[{\r\n"
+			+ "      \"multi_match\":{\r\n"
+			+ "        \"fields\":  [ \"input\" ],\r\n"
+			+ "      \"query\":     \"?0\"\r\n"
+			+ "      }\r\n"
+			+ "      },\r\n"
+			+ "      {\r\n"
+			+ "      \"multi_match\":{\r\n"
+			+ "        \"fields\":[\"output\"],\r\n"
+			+ "        \"query\":\"?1\"\r\n"
+			+ "      }\r\n"
+			+ "    }\r\n"
 			+ "      ]\r\n"
-			+ "    }}")
+			+ "  }}")
 	Page<Doc> findByInputOutput(String input,String output,Pageable pageable);
    
 
